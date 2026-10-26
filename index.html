@@ -1,9 +1,11 @@
 <!doctype html>
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Copyright (c) 2026 Masayuki Hatta -->
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>夜の高速道路</title>
+<title>Night Freeway</title>
 <style>
 /* Layout: full-screen canvas with a small speedometer and controls at bottom left. Single dark theme for the night scene. */
 :root {
@@ -74,31 +76,31 @@ body { font-family: var(--sans); }
 (() => {
   // ---------------- UI language (follows the browser's language settings) ----------------
   const STRINGS = {
-    ja: { title: '夜の高速道路', scene: '光る点で描いた夜の高速道路を走る映像',
+    ja: { title: 'Night Freeway', scene: '光る点で描いた夜の高速道路を走る映像',
           slower: '減速', faster: '加速', pause: '一時停止', resume: '再開',
           left: '左側通行', right: '右側通行', drive: '通行方向を切り替え',
           keys: '↑↓ 速度 ・ Space 停止 ・ D 通行方向' },
-    en: { title: 'Night Highway', scene: 'A night drive along a highway, drawn with points of light',
+    en: { title: 'Night Freeway', scene: 'A night drive on the freeway, drawn with points of light',
           slower: 'Slow down', faster: 'Speed up', pause: 'Pause', resume: 'Resume',
           left: 'Left-hand traffic', right: 'Right-hand traffic', drive: 'Switch driving side',
           keys: '↑↓ speed · Space pause · D driving side' },
-    zh: { title: '夜晚的高速公路', scene: '用光点描绘的夜间高速公路驾驶场景',
+    zh: { title: 'Night Freeway', scene: '用光点描绘的夜间高速公路驾驶场景',
           slower: '减速', faster: '加速', pause: '暂停', resume: '继续',
           left: '靠左行驶', right: '靠右行驶', drive: '切换行驶方向',
           keys: '↑↓ 速度 · 空格 暂停 · D 行驶方向' },
-    ko: { title: '밤의 고속도로', scene: '빛나는 점으로 그린 밤 고속도로 주행 장면',
+    ko: { title: 'Night Freeway', scene: '빛나는 점으로 그린 밤 고속도로 주행 장면',
           slower: '감속', faster: '가속', pause: '일시 정지', resume: '재개',
           left: '좌측통행', right: '우측통행', drive: '통행 방향 전환',
           keys: '↑↓ 속도 · Space 일시 정지 · D 통행 방향' },
-    fr: { title: 'Autoroute de nuit', scene: 'Un trajet de nuit sur l’autoroute, dessiné avec des points lumineux',
+    fr: { title: 'Night Freeway', scene: 'Un trajet de nuit sur l’autoroute, dessiné avec des points lumineux',
           slower: 'Ralentir', faster: 'Accélérer', pause: 'Pause', resume: 'Reprendre',
           left: 'Circulation à gauche', right: 'Circulation à droite', drive: 'Changer le sens de circulation',
           keys: '↑↓ vitesse · Espace pause · D sens de circulation' },
-    de: { title: 'Autobahn bei Nacht', scene: 'Eine nächtliche Autobahnfahrt aus Lichtpunkten',
+    de: { title: 'Night Freeway', scene: 'Eine nächtliche Autobahnfahrt aus Lichtpunkten',
           slower: 'Langsamer', faster: 'Schneller', pause: 'Pause', resume: 'Fortsetzen',
           left: 'Linksverkehr', right: 'Rechtsverkehr', drive: 'Fahrseite wechseln',
           keys: '↑↓ Tempo · Leertaste Pause · D Fahrseite' },
-    es: { title: 'Autopista de noche', scene: 'Un viaje nocturno por la autopista dibujado con puntos de luz',
+    es: { title: 'Night Freeway', scene: 'Un viaje nocturno por la autopista dibujado con puntos de luz',
           slower: 'Reducir velocidad', faster: 'Acelerar', pause: 'Pausa', resume: 'Reanudar',
           left: 'Circulación por la izquierda', right: 'Circulación por la derecha', drive: 'Cambiar el lado de circulación',
           keys: '↑↓ velocidad · Espacio pausa · D lado de circulación' },
