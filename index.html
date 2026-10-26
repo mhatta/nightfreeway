@@ -70,7 +70,8 @@ body { font-family: var(--sans); }
   <button id="faster" type="button" aria-label="加速">＋</button>
   <button id="pause" type="button" aria-label="一時停止">Ⅱ</button>
   <button id="drive" class="drive" type="button" aria-label="通行方向を切り替え">左側通行</button>
-  <div class="keys" id="keys">↑↓ 速度 ・ Space 停止 ・ D 通行方向</div>
+  <button id="fs" type="button" aria-label="全画面">⛶</button>
+  <div class="keys" id="keys">↑↓ 速度 ・ Space 停止 ・ D 通行方向 ・ F 全画面</div>
 </div>
 
 <script>
@@ -80,31 +81,38 @@ body { font-family: var(--sans); }
     ja: { title: 'Night Freeway', scene: '光る点で描いた夜の高速道路を走る映像',
           slower: '減速', faster: '加速', pause: '一時停止', resume: '再開',
           left: '左側通行', right: '右側通行', drive: '通行方向を切り替え',
-          keys: '↑↓ 速度 ・ Space 停止 ・ D 通行方向' },
+          fs: '全画面', fsExit: '全画面を解除',
+          keys: '↑↓ 速度 ・ Space 停止 ・ D 通行方向 ・ F 全画面' },
     en: { title: 'Night Freeway', scene: 'A night drive on the freeway, drawn with points of light',
           slower: 'Slow down', faster: 'Speed up', pause: 'Pause', resume: 'Resume',
           left: 'Left-hand traffic', right: 'Right-hand traffic', drive: 'Switch driving side',
-          keys: '↑↓ speed · Space pause · D driving side' },
+          fs: 'Fullscreen', fsExit: 'Exit fullscreen',
+          keys: '↑↓ speed · Space pause · D driving side · F fullscreen' },
     zh: { title: 'Night Freeway', scene: '用光点描绘的夜间高速公路驾驶场景',
           slower: '减速', faster: '加速', pause: '暂停', resume: '继续',
           left: '靠左行驶', right: '靠右行驶', drive: '切换行驶方向',
-          keys: '↑↓ 速度 · 空格 暂停 · D 行驶方向' },
+          fs: '全屏', fsExit: '退出全屏',
+          keys: '↑↓ 速度 · 空格 暂停 · D 行驶方向 · F 全屏' },
     ko: { title: 'Night Freeway', scene: '빛나는 점으로 그린 밤 고속도로 주행 장면',
           slower: '감속', faster: '가속', pause: '일시 정지', resume: '재개',
           left: '좌측통행', right: '우측통행', drive: '통행 방향 전환',
-          keys: '↑↓ 속도 · Space 일시 정지 · D 통행 방향' },
+          fs: '전체 화면', fsExit: '전체 화면 종료',
+          keys: '↑↓ 속도 · Space 일시 정지 · D 통행 방향 · F 전체 화면' },
     fr: { title: 'Night Freeway', scene: 'Un trajet de nuit sur l’autoroute, dessiné avec des points lumineux',
           slower: 'Ralentir', faster: 'Accélérer', pause: 'Pause', resume: 'Reprendre',
           left: 'Circulation à gauche', right: 'Circulation à droite', drive: 'Changer le sens de circulation',
-          keys: '↑↓ vitesse · Espace pause · D sens de circulation' },
+          fs: 'Plein écran', fsExit: 'Quitter le plein écran',
+          keys: '↑↓ vitesse · Espace pause · D sens de circulation · F plein écran' },
     de: { title: 'Night Freeway', scene: 'Eine nächtliche Autobahnfahrt aus Lichtpunkten',
           slower: 'Langsamer', faster: 'Schneller', pause: 'Pause', resume: 'Fortsetzen',
           left: 'Linksverkehr', right: 'Rechtsverkehr', drive: 'Fahrseite wechseln',
-          keys: '↑↓ Tempo · Leertaste Pause · D Fahrseite' },
+          fs: 'Vollbild', fsExit: 'Vollbild beenden',
+          keys: '↑↓ Tempo · Leertaste Pause · D Fahrseite · F Vollbild' },
     es: { title: 'Night Freeway', scene: 'Un viaje nocturno por la autopista dibujado con puntos de luz',
           slower: 'Reducir velocidad', faster: 'Acelerar', pause: 'Pausa', resume: 'Reanudar',
           left: 'Circulación por la izquierda', right: 'Circulación por la derecha', drive: 'Cambiar el lado de circulación',
-          keys: '↑↓ velocidad · Espacio pausa · D lado de circulación' },
+          fs: 'Pantalla completa', fsExit: 'Salir de pantalla completa',
+          keys: '↑↓ velocidad · Espacio pausa · D lado de circulación · F pantalla completa' },
   };
   // pick the first supported language from the browser's preference list; fall back to English
   const LANG = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'])
@@ -118,6 +126,7 @@ body { font-family: var(--sans); }
   document.getElementById('faster').setAttribute('aria-label', T.faster);
   document.getElementById('pause').setAttribute('aria-label', T.pause);
   document.getElementById('drive').setAttribute('aria-label', T.drive);
+  document.getElementById('fs').setAttribute('aria-label', T.fs);
   document.getElementById('drive').textContent = T.left;
   document.getElementById('keys').textContent = T.keys;
   // ---------------- Screen ----------------
@@ -653,6 +662,33 @@ body { font-family: var(--sans); }
     lastTap = now;
     if (taps >= 10) { taps = 0; summonUfo(); }
   });
+
+  // fullscreen (hide the button where the API is unavailable, e.g. iPhone Safari)
+  const fsBtn = document.getElementById('fs');
+  const fsRoot = document.documentElement;
+  const fsActive = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+  if (!(fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen)) {
+    fsBtn.style.display = 'none';
+  } else {
+    const toggleFullscreen = () => {
+      if (fsActive()) {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      } else {
+        try {
+          const p = (fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen).call(fsRoot);
+          if (p && p.catch) p.catch(() => {});
+        } catch (e) {}
+      }
+    };
+    fsBtn.addEventListener('click', toggleFullscreen);
+    window.addEventListener('keydown', e => { if (e.code === 'KeyF') toggleFullscreen(); });
+    // Esc also leaves fullscreen, so track the state via the change event
+    ['fullscreenchange', 'webkitfullscreenchange'].forEach(t =>
+      document.addEventListener(t, () => {
+        fsBtn.textContent = fsActive() ? '⊡' : '⛶';
+        fsBtn.setAttribute('aria-label', fsActive() ? T.fsExit : T.fs);
+      }));
+  }
 
   // switch between left- and right-hand traffic
   const driveBtn = document.getElementById('drive');

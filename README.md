@@ -2,7 +2,7 @@
 
 A night highway drive drawn with points of light.
 
-A single-page canvas animation inspired by the original old DOS/Windows screen saver program. No build step or external dependencies besides a web font: open `index.html` in a browser, or serve it from any static host (GitHub Pages, Cloudflare Pages, etc.).
+A single-page canvas animation inspired by a classic DOS/Windows screensaver. There is no build step and no external dependency other than a web font: open `index.html` in a browser, or serve it from any static host (GitHub Pages, Cloudflare Pages, etc.).
 
 ## Features
 
@@ -10,7 +10,7 @@ A single-page canvas animation inspired by the original old DOS/Windows screen s
 - Delineators, lane markings, median street lamps, tunnels with sodium or LED lighting, and portals that limit what is visible
 - Other traffic: tail lights, brake lights, oncoming headlights with glare, and lorries with marker lamps
 - Starry sky, distant mountain ridge, city lights and occasional shooting stars
-- Speed control, pause, and left-/right-hand traffic switch
+- Speed control, pause, fullscreen, and left-/right-hand traffic switch
 - UI text follows the browser language (ja, en, zh, ko, fr, de, es)
 
 ## Controls
@@ -20,6 +20,7 @@ A single-page canvas animation inspired by the original old DOS/Windows screen s
 | ↑ / ↓ | Speed up / slow down |
 | Space | Pause / resume |
 | D | Switch between left- and right-hand traffic |
+| F | Toggle fullscreen (Esc exits) |
 
 On touch screens, use the buttons at the bottom left.
 
