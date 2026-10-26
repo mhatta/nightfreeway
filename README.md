@@ -10,7 +10,7 @@ A single-page canvas animation inspired by a classic DOS/Windows screensaver. Th
 - Delineators, lane markings, and median street lamps with pools of light on the road
 - Other traffic: tail lights, brake lights, and oncoming headlights with glare
 - Starry sky, city lights on the horizon, and occasional shooting stars, all panning as the road bends
-- Speed control, pause, and a switch between left- and right-hand traffic
+- Speed control, pause, fullscreen, and a switch between left- and right-hand traffic
 - UI text that follows the browser language (ja, en, zh, ko, fr, de, es)
 
 ## Controls
@@ -20,6 +20,7 @@ A single-page canvas animation inspired by a classic DOS/Windows screensaver. Th
 | ↑ / ↓ | Speed up / slow down |
 | Space | Pause / resume |
 | D | Switch between left- and right-hand traffic |
+| F | Toggle fullscreen (Esc exits) |
 
 On touch screens, use the buttons at the bottom left.
 
